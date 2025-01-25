@@ -2,9 +2,16 @@ import json
 
 
 def load_data(file_path):
-    with open(file_path, 'r', encoding='utf-8') as file:
-        data = json.load(file)
-    return data
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+        return data
+    except FileNotFoundError:
+        print(f"Ошибка: Файл '{file_path}' не найден")
+        return []
+    except json.JSONDecodeError:
+        print(f"Ошибка: Файл '{file_path}' не является корректным json")
+        return []
 
 
 def calculate_stats(data):
